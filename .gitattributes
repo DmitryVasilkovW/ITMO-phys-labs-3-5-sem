@@ -1,3 +1,0 @@
-*.xlsx linguist-detectable=true
-*.xlsx linguist-language=XLSX
-*.ipynb linguist-detectable=false
