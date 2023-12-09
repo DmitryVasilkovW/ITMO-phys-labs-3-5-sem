@@ -1,5 +1,3 @@
-*.svg linguist-detectable=true
-*.svg linguist-language=SVG
 *.md linguist-detectable=true
 *.md linguist-language=MD
 *.ipynb linguist-detectable=false
