@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор системы отсчета</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #343a40;
+            padding: 10px;
+            color: #f8f9fa;
+        }
+        .input-field, .button-field {
+            margin: 10px 0;
+            background-color: #fff;
+            border-radius: 5px;
+            padding: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-size: 1em;
+            color: #adb5bd;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 5px;
+            border: 2px solid #ccc;
+            font-size: 1em;
+            color: #343a40;
+            background-color: #f8f9fa;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+            font-size: 1em;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        h1, h2 {
+            text-align: center;
+            font-size: 1.5em;
+            color: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+<h1>Калькулятор системы отсчета</h1>
+<div class="input-field">
+    <label for="V">Скорость системы отсчета V (м/с):</label>
+    <input type="number" id="V" placeholder="Введите скорость системы отсчета" style="color: #343a40;">
+</div>
+<div class="input-field">
+    <label for="v_prime">Скорость материальной точки v' (м/с):</label>
+    <input type="number" id="v_prime" placeholder="Введите скорость материальной точки в системе отсчета" style="color: #343a40;">
+</div>
+<div class="input-field">
+    <label for="x_prime">Начальная координата материальной точки x<sub>0</sub>' (м):</label>
+    <input type="number" id="x_prime" placeholder="Введите начальную координату материальной точки в системе отсчета" style="color: #343a40;">
+</div>
+<div class="input-field">
+    <label for="t_prime">Время t (с):</label> <!-- Добавляем поле для ввода времени -->
+    <input type="number" id="t_prime" placeholder="Введите время" style="color: #343a40;">
+</div>
+<div class="button-field">
+    <button onclick="calculate()">Рассчитать v и x</button>
+</div>
+<div class="input-field">
+    <label for="V2">Скорость системы отсчета V (м/с):</label>
+    <input type="number" id="V2" placeholder="Введите скорость системы отсчета" style="color: #343a40;">
+</div>
+<div class="input-field">
+    <label for="v">Скорость материальной точки v (м/с):</label>
+    <input type="number" id="v" placeholder="Введите скорость материальной точки" style="color: #343a40;">
+</div>
+<div class="input-field">
+    <label for="x">Координата материальной точки x (м):</label>
+    <input type="number" id="x" placeholder="Введите координату материальной точки" style="color: #343a40;">
+</div>
+<div class="input-field">
+    <label for="t">Время t (с):</label> <!-- Добавляем поле для ввода времени -->
+    <input type="number" id="t" placeholder="Введите время" style="color: #343a40;">
+</div>
+<div class="button-field">
+    <button onclick="calculatePrime()">Рассчитать v' и x'</button>
+</div>
+<h2 id="output"></h2>
+
+<script src="simulation.js"></script>
+</body>
+</html>
