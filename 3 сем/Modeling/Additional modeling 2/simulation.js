@@ -63,7 +63,6 @@ document.getElementById('calculate').addEventListener('click', function() {
     }
     document.getElementById("K").innerHTML = "k<sub>эффективная</sub>" + ": " + K.toFixed(2) + " Н/м";
 
-    // Добавьте визуализацию пружин
     drawSprings(k_values, displacement);
 });
 
