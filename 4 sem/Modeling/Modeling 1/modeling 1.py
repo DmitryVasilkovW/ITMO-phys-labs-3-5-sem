@@ -67,19 +67,19 @@ def simulate_and_plot(U, Ic, Rk, steps=1000, tmax=1e-6, stop_velocity=None):
     return r_orbit
 
 
-def find_required_current(D, Ra, Rk, n, I):
+def find_required_current(Ra, Rk, n, U):
     r_orbit = (Ra - Rk) / 2  # Радиус окружности
 
-    if (2 * e_charge * mu_0 * n * r_orbit * I) == 0:
+    if (r_orbit * e_charge * n * mu_0) == 0:
         return
 
-    Ic_required = (m_electron * (D / 2) ** 2) / (2 * e_charge * mu_0 * n * r_orbit * I)
+    Ic_required = (m_electron * math.sqrt(2 * (e_charge / m_electron) * U)) / (r_orbit * e_charge * n * mu_0)
 
     return Ic_required
 
 
 # Функция для построения диаграммы (Ic от U) и отметки области, где электрон описывает окружность диаметром (Ra-Rk)
-def plot_Ic_U_diagram_with_circle(D, Ra, Rk, n):
+def plot_Ic_U_diagram_with_circle(Ra, Rk, n):
     U_values = np.linspace(0, 1000, 100)  # Диапазон разности потенциалов
 
     # Создание списка для значений силы тока в соленоиде
@@ -87,7 +87,7 @@ def plot_Ic_U_diagram_with_circle(D, Ra, Rk, n):
 
     for U in U_values:
         # Вычисление соответствующей силы тока Ic, чтобы электрон описывал окружность диаметром (Ra-Rk)
-        Ic_required = find_required_current(D, Ra, Rk, n, U)
+        Ic_required = find_required_current(Ra, Rk, n, U)
         Ic_values.append(Ic_required)
 
     # Приведение значений к числовому типу
@@ -107,7 +107,6 @@ def plot_Ic_U_diagram_with_circle(D, Ra, Rk, n):
 
 
 # Пример использования
-D = 0.1  # Диаметр соленоида в метрах
 Ra = 0.01  # Радиус анода в метрах
 Rk = 0.005  # Радиус катода в метрах
 U = 100  # Разность потенциалов в вольтах
@@ -119,4 +118,4 @@ r_orbit = simulate_and_plot(U, Ic, Rk, stop_velocity=1e5)
 print("Радиус орбиты электрона:", r_orbit)
 
 # Построение диаграммы Ic от U
-plot_Ic_U_diagram_with_circle(D, Ra, Rk, n)
+plot_Ic_U_diagram_with_circle(Ra, Rk, n)
