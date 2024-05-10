@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from scipy.integrate import odeint
 
 # Константы
-e_charge = 1.60217662e-19  # элементарный заряд
+e_charge = -1.60217662e-19  # элементарный заряд
 m_electron = 9.10938356e-31  # масса электрона
 mu_0 = 4 * np.pi * 1e-7  # магнитная проницаемость вакуума
 
@@ -26,7 +26,7 @@ def orbit_radius(I, U, n):
     if B == 0:
         return
 
-    return math.sqrt((m_electron * 2 * U)/(e_charge * (B ** 2)))
+    return math.sqrt((m_electron * 2 * U)/(np.abs(e_charge) * (B ** 2)))
 
 
 def simulate_and_plot(U, Ic, Rk, steps=1000, tmax=1e-6, stop_velocity=None):
@@ -36,7 +36,7 @@ def simulate_and_plot(U, Ic, Rk, steps=1000, tmax=1e-6, stop_velocity=None):
     # Начальные условия
     x0 = Rk
     y0 = 0
-    v0 = np.sqrt(2 * e_charge * U / m_electron)
+    v0 = np.sqrt(2 * np.abs(e_charge) * U / m_electron)
     r_orbit = orbit_radius(Ic, U, n)  # Вычисление радиуса орбиты
 
     # Угловая скорость электрона
@@ -67,13 +67,22 @@ def simulate_and_plot(U, Ic, Rk, steps=1000, tmax=1e-6, stop_velocity=None):
     return r_orbit
 
 
-def find_required_current(Ra, Rk, n, U):
-    r_orbit = (Ra - Rk) / 2  # Радиус окружности
-
+def find_required_current_positive(Ra, Rk, n, U):
+    r_orbit = (Ra - Rk) / 2
     if (r_orbit * e_charge * n * mu_0) == 0:
         return
 
-    Ic_required = (m_electron * math.sqrt(2 * (e_charge / m_electron) * U)) / (r_orbit * e_charge * n * mu_0)
+    Ic_required = (m_electron * np.sqrt(2 * (e_charge / m_electron) * U)) / (r_orbit * e_charge * n * mu_0)
+
+    return Ic_required
+
+
+def find_required_current_negative(Ra, Rk, n, U):
+    r_orbit = (Ra - Rk) / 2
+    if (r_orbit * -e_charge * n * mu_0) == 0:
+        return
+
+    Ic_required = (m_electron * np.sqrt(2 * (-e_charge / m_electron) * U)) / (r_orbit * -e_charge * n * mu_0)
 
     return Ic_required
 
@@ -87,7 +96,10 @@ def plot_Ic_U_diagram_with_circle(Ra, Rk, n):
 
     for U in U_values:
         # Вычисление соответствующей силы тока Ic, чтобы электрон описывал окружность диаметром (Ra-Rk)
-        Ic_required = find_required_current(Ra, Rk, n, U)
+        if e_charge > 0:
+            Ic_required = find_required_current_positive(Ra, Rk, n, U)
+        else:
+            Ic_required = find_required_current_negative(Ra, Rk, n, U)
         Ic_values.append(Ic_required)
 
     # Приведение значений к числовому типу
