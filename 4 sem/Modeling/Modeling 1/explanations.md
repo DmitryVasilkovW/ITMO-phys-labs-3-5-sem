@@ -42,13 +42,13 @@ def electron_motion(y, t, U, B, m, e):
 ---
 
 ````
-def orbit_radius(I, D, n):
+def orbit_radius(I, U, n):
     B = mu_0 * n * I
-    
+
     if B == 0:
         return
-        
-    return (m_electron * (D / 2) ** 2) / (2 * e_charge * B)
+
+    return math.sqrt((m_electron * 2 * U)/(e_charge * (B ** 2)))
 ````
 
 1) B = mu_0 * n * I 
@@ -288,13 +288,13 @@ def simulate_and_plot(U, Ic, Rk, steps=1000, tmax=1e-6, stop_velocity=None):
 ---
 
 ````
-def find_required_current(D, Ra, Rk, n, I):
+def find_required_current(Ra, Rk, n, U):
     r_orbit = (Ra - Rk) / 2  # Радиус окружности
 
-    if (2 * e_charge * mu_0 * n * r_orbit * I) == 0:
+    if (r_orbit * e_charge * n * mu_0) == 0:
         return
 
-    Ic_required = (m_electron * (D / 2) ** 2) / (2 * e_charge * mu_0 * n * r_orbit * I)
+    Ic_required = (m_electron * math.sqrt(2 * (e_charge / m_electron) * U)) / (r_orbit * e_charge * n * mu_0)
 
     return Ic_required
 ````
