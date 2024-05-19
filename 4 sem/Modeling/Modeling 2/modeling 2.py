@@ -16,7 +16,6 @@ Intensity = np.sin(np.pi * total_strokes * period * np.sin(Theta) / Wavelength) 
 colors = [(0.0, 'blue'), (0.5, 'green'), (0.8, 'yellow'), (1.0, 'red')]
 cmap_wave = LinearSegmentedColormap.from_list('wave', colors)
 
-# Нормализуем данные по длине волны
 norm = Normalize(vmin=wavelength.min(), vmax=wavelength.max())
 
 fig2 = plt.figure(figsize=(12, 6))
