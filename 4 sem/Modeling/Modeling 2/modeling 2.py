@@ -4,14 +4,21 @@ from matplotlib.colors import LinearSegmentedColormap, Normalize
 
 period = 1.0
 total_strokes = 1000
+d = 3
 
 theta = np.linspace(-np.pi / 2, np.pi / 2, 100)
 wavelength = np.linspace(400, 750, 2000)
 
 Theta, Wavelength = np.meshgrid(theta, wavelength)
 
-Intensity = np.sin(np.pi * total_strokes * period * np.sin(Theta) / Wavelength) ** 2 / \
-            (np.sin(np.pi * period * np.sin(Theta) / Wavelength) ** 2)
+Intensity = np.sin(np.pi * period * np.sin(Theta) / Wavelength) ** 2 / \
+            ((np.pi * period * np.sin(Theta) / Wavelength) ** 2)
+
+tmp = np.sin(np.pi * total_strokes * d * np.sin(Theta) / Wavelength) ** 2 / \
+            np.sin(np.pi * d * np.sin(Theta) / Wavelength) ** 2
+
+Intensity *= tmp
+
 
 colors = [(0.0, 'violet'), (0.15, 'indigo'), (0.3, 'blue'),
           (0.45, 'green'), (0.6, 'yellow'),
@@ -40,8 +47,13 @@ Theta, Wavelength = np.meshgrid(theta, wavelength)
 
 blue_wavelength = 470
 
-Intensity_blue = np.sin(np.pi * total_strokes * period * np.sin(Theta) / blue_wavelength) ** 2 / \
-            (np.sin(np.pi * period * np.sin(Theta) / blue_wavelength) ** 2)
+Intensity_blue = np.sin(np.pi * period * np.sin(Theta) / blue_wavelength) ** 2 / \
+            ((np.pi * period * np.sin(Theta) / blue_wavelength) ** 2)
+
+tmp = np.sin(np.pi * total_strokes * d * np.sin(Theta) / blue_wavelength) ** 2 / \
+            np.sin(np.pi * d * np.sin(Theta) / blue_wavelength) ** 2
+
+Intensity_blue *= tmp
 
 fig3 = plt.figure(figsize=(6, 6))
 ax3 = fig3.add_subplot(111, projection='3d')
