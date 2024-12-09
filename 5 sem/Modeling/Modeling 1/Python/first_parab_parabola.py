@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from scipy.linalg import eigh
 
 
-def a_hole():
+def a_parabola():
     hbar = 1.0545718e-34
     eV = 1.60218e-19
     m = 9.10938356e-31
@@ -56,4 +56,3 @@ def a_hole():
     plt.legend()
     plt.grid()
     plt.show()
-
